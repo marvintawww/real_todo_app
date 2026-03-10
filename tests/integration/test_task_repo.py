@@ -59,7 +59,7 @@ async def test_update_task(db_session, created_task):
     query_repo = TaskQueryRepository(session=db_session)
     command_repo = TaskCommandRepository(session=db_session)
     new_data = TaskInfoUpdate(
-        title="New", description="New desc", completed=True, task_date="2026-09-12"
+        title="New", description="New desc", task_date="2026-09-12"
     )
     updated_task = await command_repo.update(created_task, new_data)
     found = await query_repo.get_by_id(updated_task.id)
@@ -67,5 +67,4 @@ async def test_update_task(db_session, created_task):
     assert found.id == 1
     assert found.title == "New"
     assert found.description == "New desc"
-    assert found.completed is True
     assert found.task_date == date(2026, 9, 12)
